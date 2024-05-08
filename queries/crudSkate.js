@@ -84,10 +84,10 @@ export const deleteSkaterQuery = async (id) => {
         values: [id],
         };
         const result = await pool.query(sql);
-        console.log(result.rows[0]);
-        return result.rows[0];
+    
+        return result.rows.length > 0 ? result.rows[0] : null;
     } catch (error) {
         console.error(error.message);
-        throw error; 
+        throw error;
     }
 };

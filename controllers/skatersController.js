@@ -95,11 +95,15 @@ export const updateStaker = async (req, res) => {
 export const deleteSkater = async (req, res) => {
     const { id } = req.params;
     try {
-        await deleteSkaterQuery(id);
-        res.status(200).send("Usuario eliminado exitosamente");
+    const skaters = await deleteSkaterQuery(id);
+    if (skaters) {
+        res.status(200).send(skaters); 
+        } else {
+        res.status(404).send("Usuario no encontrado"); 
+        }
     } catch (e) {
         res.status(500).send({
-        error: `Algo salió mal... ${e}`,
+        error: `Algo salió mal... ${e.message}`,
         code: 500,
         });
     }
